@@ -1,0 +1,36 @@
+<!-- NFL Teams obtained from Fantasy Football-->
+<?xml version="1.0" encoding="UTF-8" ?>
+<NFLTeams>
+    <Team code="ARI"  fullName="Arizona Cardinals"  shortName="Arizona" />
+    <Team code="ATL"  fullName="Atlanta Falcons"  shortName="Atlanta" />
+    <Team code="BAL"  fullName="Baltimore Ravens"  shortName="Baltimore" />
+    <Team code="BUF"  fullName="Buffalo Bills"  shortName="Buffalo" />
+    <Team code="CAR"  fullName="Carolina Panthers"  shortName="Carolina" />
+    <Team code="CHI"  fullName="Chicago Bears"  shortName="Chicago" />
+    <Team code="CIN"  fullName="Cincinnati Bengals"  shortName="Cincinnati" />
+    <Team code="CLE"  fullName="Cleveland Browns"  shortName="Cleveland" />
+    <Team code="DAL"  fullName="Dallas Cowboys"  shortName="Dallas" />
+    <Team code="DEN"  fullName="Denver Broncos"  shortName="Denver" />
+    <Team code="DET"  fullName="Detroit Lions"  shortName="Detroit" />
+    <Team code="GB"  fullName="Green Bay Packers"  shortName="Green Bay" />
+    <Team code="HOU"  fullName="Houston Texans"  shortName="Houston" />
+    <Team code="IND"  fullName="Indianapolis Colts"  shortName="Indianapolis" />
+    <Team code="JAC"  fullName="Jacksonville Jaguars"  shortName="Jacksonville" />
+    <Team code="KC"  fullName="Kansas City Chiefs"  shortName="Kansas City" />
+    <Team code="MIA"  fullName="Miami Dolphins"  shortName="Miami" />
+    <Team code="MIN"  fullName="Minnesota Vikings"  shortName="Minnesota" />
+    <Team code="NYG"  fullName="N.Y. Giants"  shortName="N.Y. Giants" />
+    <Team code="NYJ"  fullName="N.Y. Jets"  shortName="N.Y. Jets" />
+    <Team code="NE"  fullName="New England Patriots"  shortName="New England" />
+    <Team code="NO"  fullName="New Orleans Saints"  shortName="New Orleans" />
+    <Team code="OAK"  fullName="Oakland Raiders"  shortName="Oakland" />
+    <Team code="PHI"  fullName="Philadelphia Eagles"  shortName="Philadelphia" />
+    <Team code="PIT"  fullName="Pittsburgh Steelers"  shortName="Pittsburgh" />
+    <Team code="SD"  fullName="San Diego Chargers"  shortName="San Diego" />
+    <Team code="SF"  fullName="San Francisco 49ers"  shortName="San Francisco" />
+    <Team code="SEA"  fullName="Seattle Seahawks"  shortName="Seattle" />
+    <Team code="LA"  fullName="Los Angeles Rams"  shortName="Los Angeles" />
+    <Team code="TB"  fullName="Tampa Bay Buccaneers"  shortName="Tampa Bay" />
+    <Team code="TEN"  fullName="Tennessee Titans"  shortName="Tennessee" />
+    <Team code="WAS"  fullName="Washington Redskins"  shortName="Washington" />
+</NFLTeams>

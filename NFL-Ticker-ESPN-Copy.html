@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>jQuery Ticker</title>
+      <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js "></script>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+      <script type="text/javascript">
+      function ticker() {
+      $('#ListTicker li:first').slideUp(function() {
+        $(this).appendTo($('#ListTicker')).slideDown();
+        });
+      }
+      setInterval(ticker, 4000);
+
+      $(document).ready(function() {
+        whereMagicHappens()
+      });
+
+      var whereMagicHappens = function() {
+          var feed = "http://espn.go.com/espn/rss/nfl/news";
+          $.ajax(feed, {
+              accepts:{
+                  xml:"application/rss+xml"
+              },
+              dataType:"xml",
+              success:function(data) {
+                   console.log(data)
+                  $(data).find("item").each(function () {
+                      var parsedXML = $(this);
+
+                      var receivingObject = {};
+                      receivingObject.title = parsedXML.find("title").text();
+                      receivingObject.description = parsedXML.find("description").text();
+                      receivingObject.link = parsedXML.find("link").text();
+                      receivingObject.pubDate = parsedXML.find("pubDate").text();
+
+                      var newListItem = document.createElement("li");
+                      var newDivItem = document.createElement("div");
+                      var newHeaderItem = document.createElement("customheader");
+                      var newParaItem = document.createElement("p");
+                      var tempTitle;
+
+                      //newListItem.textContent = 
+                      tempTitle = receivingObject.title;
+                      //console.log(tempTitle);
+                      newHeaderItem.textContent = tempTitle.replace(/&apos;/g,"\'");
+                      newParaItem.textContent =  receivingObject.pubDate;
+
+                      // tempTitle = newHeaderItem.textContent;
+                      // console.log(tempTitle+'Before Regex');
+                      // var finalTitle = tempTitle.replace(" \' ","YYY");
+                      // newHeaderItem = finalTitle; 
+
+                      //newParaItem = newParaItem.textContent.replace("&apos","YYY");
+                      // tempTitle = newHeaderItem.textContent.replace("&apos","YYY");
+                      //console.log(finalTitle+'After Regex');
+                      // console.log(newParaItem+'this is newParaItem');
+                      // console.log(newParaItem.textContent+'this is textContent');
+
+                      newDivItem.appendChild(newHeaderItem);
+                      newDivItem.appendChild(newParaItem);
+                      newListItem.appendChild(newDivItem);
+                      $($("#ListTicker")[0]).append(newListItem);
+                      
+                      //var newDescItem = document.createTextNode(receivingObject.pubDate);
+                      //newListItem.appendChild(newDescItem);
+  
+                      //document.getElementById("ListTicker").appendChild(newDescItem);
+
+                      
+                      //$($("#ListTicker")[0]).append(newListItem);
+                      //newListItem.textContent = receivingObject.pubDate;
+                      
+                      
+
+                      //var newListItem = document.createElement("li");
+                      //newListItem.textContent = receivingObject.pubDate;
+                      //newListItem.textContent = receivingObject.link; 
+                      //$($("#ListTicker")).append(newListItem);
+                      // console.log("------------ Next ------------");
+                      // console.log("title      : " + parsedXML.find("title").text());
+                     // console.log("description: " + parsedXML.find("description").text());
+                      //console.log("link       : " + parsedXML.find("link").text());
+                  });
+                  // var receivingArray = new receivingArray();
+                  //    receivingArray = receivingObject;
+                  //    console.log(receivingArray);
+              }
+          });
+      }; 
+
+      </script>
+      
+      <style>
+         .ticker {
+         width: 400px;
+         height: 500px;
+         overflow: hidden;
+         border: 1px solid #DDD;
+         border-radius: 5px;
+         box-shadow: 0px 0px 5px #DDD;
+         background-color: #F5F3E5;
+         text-align: left;
+         }
+         .ticker h3 {
+         padding: 0 0 10px 10px;
+         border-bottom: 1px solid #A7A7A7;
+         }
+         ul {
+         list-style: none;
+         padding: 0;
+         margin: 0;
+         /*font-style: italic;*/
+         }
+         ul li {
+         list-style: none;
+         height: 70px;
+         padding: 7px;
+         border-bottom: 1px solid #D6CFB8;
+         }
+         customheader {
+        font-size: 13px;
+        font-weight: heavy;
+        color: #2a6496;
+        font-family: "Cousine";
+         }
+         p {
+        font-size: 13px;  
+         }
+         body {
+         /*background-image: url("Tom-Brady-image.png");
+         background-size:25%;
+         background-position: right;*/
+         
+         /*background-image: url("Tom-Snap.png");*/
+         /*background-image: url("Tom-Brady-image.png");
+         background-size:50%;*/
+         /*background-size:25%;*/
+         
+         /*background-image: url("nfl_logo_2015_gold.jpg");
+         background-size:15%;*/
+         /*background-repeat: no-repeat;*/
+         /*background-position: center;*/
+
+         background-image: url("Images/super-bowl-2016.jpg");
+         background-size:100% 115%;
+         background-repeat: no-repeat;
+         /*background-position: center;*/
+
+        }        
+
+        @font-face {
+        font-family: OctinSports;
+        src: url("Fonts/good times rg.ttf") /* TTF file for CSS3 browsers */
+        }
+
+        h3 {
+        font-family: OctinSports;
+        font-size: 20px;
+        }
+
+      </style>
+   </head>
+   <body>
+      <div class="ticker">
+         <h3>2<sup>nd</sup> and Goal</h3>
+         <ul id="ListTicker"> 
+            <!-- <li>Box Office: 'Captain America: Civil War' Tops $200M In Just Five Days</li>  
+            <li>Captain America: Civil War Isn't The End Of The Avengers Conflict ...</li>
+            <li>iPhone 7 Image Leak Delivers Double Bad News Blow</li>
+            <li>Nikola's sleek hybrid semi could be the Tesla of trucks</li>
+            <li>Pentagon Turns to Silicon Valley for Edge in Artificial Intelligence</li> -->
+         </ul>
+      </div>
+   </body>
+   <br><br>
+   <div style="color:RED"> Bored from the same feeds?! Come back after a 5-mile run and hit the F5 key. </div>
+</html>
