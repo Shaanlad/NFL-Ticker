@@ -7,7 +7,14 @@
       <script type="text/javascript">
       function ticker() {
       $('#ListTicker li:first').slideUp(function() {
-        $(this).appendTo($('#ListTicker')).slideDown();
+        var divContainer = $($(this).find('div')[0]); 
+        $(this).appendTo($('#ListTicker')).slideDown(),
+        notification = new Notification("From the Shotgun", {
+          body: divContainer.children('customheader')[0].textContent
+          + '\n'
+          + divContainer.children('p')[0].textContent
+          // icon: 'http://loremflickr.com/70/70'
+          });
         });
       }
       setInterval(ticker, 4000);
@@ -163,7 +170,8 @@
    </head>
    <body>
       <div class="ticker">
-         <h3>2<sup>nd</sup> and Goal</h3>
+         <!-- <h3>2<sup>nd</sup> and Goal</h3> -->
+         <h3>From the Shotgun</h3>
          <ul id="ListTicker"> 
             <!-- <li>Box Office: 'Captain America: Civil War' Tops $200M In Just Five Days</li>  
             <li>Captain America: Civil War Isn't The End Of The Avengers Conflict ...</li>

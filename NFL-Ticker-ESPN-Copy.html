@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html>
    <head>
+    <meta charset="UTF-8"> 
       <title>jQuery Ticker</title>
       <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js "></script>
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+      <!-- <script src="./Scripts/notify.js"></script> -->
       <script type="text/javascript">
+
+      var notification, newListItem, newDivItem, newHeaderItem, newParaItem, tempTitle;
+      
       function ticker() {
       $('#ListTicker li:first').slideUp(function() {
-        $(this).appendTo($('#ListTicker')).slideDown();
+        var divContainer = $($(this).find('div')[0]); 
+        $(this).appendTo($('#ListTicker')).slideDown(),
+        notification = new Notification("From the Shotgun", {
+          body: divContainer.children('customheader')[0].textContent
+          + '\n'
+          + divContainer.children('p')[0].textContent
+          // icon: 'http://loremflickr.com/70/70'
+        });
+        // notification.show();
+         // = function() { setTimeout(notification.close, 5000) }
         });
       }
-      setInterval(ticker, 4000);
+      setInterval(ticker, 5000);
 
       $(document).ready(function() {
         whereMagicHappens()
       });
+
+      // var newListItem, newDivItem, newHeaderItem, newParaItem, tempTitle;
 
       var whereMagicHappens = function() {
           var feed = "http://espn.go.com/espn/rss/nfl/news";
@@ -24,71 +40,46 @@
               },
               dataType:"xml",
               success:function(data) {
-                   console.log(data)
-                  $(data).find("item").each(function () {
-                      var parsedXML = $(this);
+                   // console.log(data)
+                $(data).find("item").each(function () {
+                    var parsedXML = $(this);
+                    var receivingObject = {};
+                    receivingObject.title = parsedXML.find("title").text();
+                    receivingObject.description = parsedXML.find("description").text();
+                    receivingObject.link = parsedXML.find("link").text();
+                    receivingObject.pubDate = parsedXML.find("pubDate").text();
 
-                      var receivingObject = {};
-                      receivingObject.title = parsedXML.find("title").text();
-                      receivingObject.description = parsedXML.find("description").text();
-                      receivingObject.link = parsedXML.find("link").text();
-                      receivingObject.pubDate = parsedXML.find("pubDate").text();
+                    newListItem = document.createElement("li");
+                    newDivItem = document.createElement("div");
+                    newHeaderItem = document.createElement("customheader");
+                    newParaItem = document.createElement("p");
+                    // tempTitle;
+                    tempTitle = receivingObject.title;
+                    //console.log(tempTitle);
+                    newHeaderItem.textContent = tempTitle.replace(/&apos;/g,"\'");
+                    newParaItem.textContent =  receivingObject.pubDate;
 
-                      var newListItem = document.createElement("li");
-                      var newDivItem = document.createElement("div");
-                      var newHeaderItem = document.createElement("customheader");
-                      var newParaItem = document.createElement("p");
-                      var tempTitle;
+                    newDivItem.appendChild(newHeaderItem);
+                    newDivItem.appendChild(newParaItem);
+                    newListItem.appendChild(newDivItem);
+                    // console.log('~~~ $($("#ListTicker")[0]).append(newListItem) ~~~' + $($("#ListTicker")[0]).append(newListItem));
+                    $($("#ListTicker")[0]).append(newListItem);
 
-                      //newListItem.textContent = 
-                      tempTitle = receivingObject.title;
-                      //console.log(tempTitle);
-                      newHeaderItem.textContent = tempTitle.replace(/&apos;/g,"\'");
-                      newParaItem.textContent =  receivingObject.pubDate;
+                    //console.log('~~~ headerItem ~~~' + newHeaderItem.textContent);
+                    
+                    // var Notify = window.Notify.default;
+                    // var myNotification = new Notify('From the Shotgun', {
+                    //     body: newHeaderItem.textContent,
+                    //     timeout: 7
+                    // });
+                    // myNotification.show();
 
-                      // tempTitle = newHeaderItem.textContent;
-                      // console.log(tempTitle+'Before Regex');
-                      // var finalTitle = tempTitle.replace(" \' ","YYY");
-                      // newHeaderItem = finalTitle; 
-
-                      //newParaItem = newParaItem.textContent.replace("&apos","YYY");
-                      // tempTitle = newHeaderItem.textContent.replace("&apos","YYY");
-                      //console.log(finalTitle+'After Regex');
-                      // console.log(newParaItem+'this is newParaItem');
-                      // console.log(newParaItem.textContent+'this is textContent');
-
-                      newDivItem.appendChild(newHeaderItem);
-                      newDivItem.appendChild(newParaItem);
-                      newListItem.appendChild(newDivItem);
-                      $($("#ListTicker")[0]).append(newListItem);
-                      
-                      //var newDescItem = document.createTextNode(receivingObject.pubDate);
-                      //newListItem.appendChild(newDescItem);
-  
-                      //document.getElementById("ListTicker").appendChild(newDescItem);
-
-                      
-                      //$($("#ListTicker")[0]).append(newListItem);
-                      //newListItem.textContent = receivingObject.pubDate;
-                      
-                      
-
-                      //var newListItem = document.createElement("li");
-                      //newListItem.textContent = receivingObject.pubDate;
-                      //newListItem.textContent = receivingObject.link; 
-                      //$($("#ListTicker")).append(newListItem);
-                      // console.log("------------ Next ------------");
-                      // console.log("title      : " + parsedXML.find("title").text());
-                     // console.log("description: " + parsedXML.find("description").text());
-                      //console.log("link       : " + parsedXML.find("link").text());
-                  });
-                  // var receivingArray = new receivingArray();
-                  //    receivingArray = receivingObject;
-                  //    console.log(receivingArray);
+                    // notification = new Notification("From the Shotgun", { body: newHeaderItem.textContent });
+                    // notification.onshow = function() { setTimeout(notification.close, 5000) }
+                });
               }
           });
-      }; 
-
+        }; 
       </script>
       
       <style>
@@ -128,19 +119,21 @@
         font-size: 13px;  
          }
          body {
-         /*background-image: url("Tom-Brady-image.png");
+         /*background-image: url("Images/Tom-Brady-image.png");
          background-size:25%;
-         background-position: right;*/
+         background-position: center*/;
          
-         /*background-image: url("Tom-Snap.png");*/
-         /*background-image: url("Tom-Brady-image.png");
-         background-size:50%;*/
-         /*background-size:25%;*/
+         /*background-image: url("Images/Tom-Snap.png");*/
+         /*background-image: url("Images/Tom-Brady-image.png");*/
+         /*background-size:50%;*/
+         /*background-size:25%;
+         background-repeat: no-repeat;
+         background-position: center;*/
          
-         /*background-image: url("nfl_logo_2015_gold.jpg");
+         /*background-image: url("Images/nfl_logo_2015_gold.jpg");
          background-size:15%;*/
-         /*background-repeat: no-repeat;*/
-         /*background-position: center;*/
+         /*background-repeat: no-repeat;
+         background-position: center;*/
 
          background-image: url("Images/super-bowl-2016.jpg");
          background-size:100% 115%;
@@ -163,7 +156,8 @@
    </head>
    <body>
       <div class="ticker">
-         <h3>2<sup>nd</sup> and Goal</h3>
+         <h3>From the Shotgun</h3>
+         <!-- <h3>1<sup>st</sup> and Inches</h3> -->
          <ul id="ListTicker"> 
             <!-- <li>Box Office: 'Captain America: Civil War' Tops $200M In Just Five Days</li>  
             <li>Captain America: Civil War Isn't The End Of The Avengers Conflict ...</li>
@@ -172,7 +166,66 @@
             <li>Pentagon Turns to Silicon Valley for Edge in Artificial Intelligence</li> -->
          </ul>
       </div>
+      <div class="elem-demo"></div>
+      <!-- <button id="my-button">Notify Me!</button> -->
+  <script src="./Scripts/notify.js"></script>
+  <script>
+    
+      document.getElementById('my-button').addEventListener('click', function () {
+
+            function onShowNotification () {
+                console.log('notification is shown!');
+            }
+
+            function onCloseNotification () {
+                console.log('notification is closed!');
+            }
+
+            function onClickNotification () {
+                console.log('notification was clicked!');
+            }
+
+            function onErrorNotification () {
+                console.error('Error showing notification. You may need to request permission.');
+            }
+
+            function onPermissionGranted () {
+                console.log('Permission has been granted by the user');
+                doNotification();
+            }
+
+            function onPermissionDenied () {
+                console.warn('Permission has been denied by the user');
+            }
+
+            var Notify = window.Notify.default;
+
+            function doNotification () {
+                var myNotification = new Notify('Cheers!', {
+                    body: 'This is an awesome notification',
+                    tag: 'My unique id',
+                    notifyShow: onShowNotification,
+                    notifyClose: onCloseNotification,
+                    notifyClick: onClickNotification,
+                    notifyError: onErrorNotification,
+                    timeout: 5
+                });
+
+                myNotification.show();
+            }
+
+            if (!Notify.needsPermission) {
+                doNotification();
+            } else if (Notify.isSupported()) {
+                Notify.requestPermission(onPermissionGranted, onPermissionDenied);
+            }
+
+        }, false);
+
+  </script>
    </body>
+
+
    <br><br>
    <div style="color:RED"> Bored from the same feeds?! Come back after a 5-mile run and hit the F5 key. </div>
 </html>
