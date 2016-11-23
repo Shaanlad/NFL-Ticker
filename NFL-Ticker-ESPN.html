@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>jQuery Ticker</title>
+      <title>NFL Sports Feed</title>
       <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js "></script>
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
       <script type="text/javascript">
@@ -13,7 +13,7 @@
           body: divContainer.children('customheader')[0].textContent
           + '\n'
           + divContainer.children('p')[0].textContent
-          // icon: 'http://loremflickr.com/70/70'
+           //icon: 'http://loremflickr.com/70/70'
           });
         });
       }
@@ -31,7 +31,7 @@
               },
               dataType:"xml",
               success:function(data) {
-                   console.log(data)
+                  console.log(data)
                   $(data).find("item").each(function () {
                       var parsedXML = $(this);
 
@@ -47,51 +47,15 @@
                       var newParaItem = document.createElement("p");
                       var tempTitle;
 
-                      //newListItem.textContent = 
                       tempTitle = receivingObject.title;
-                      //console.log(tempTitle);
                       newHeaderItem.textContent = tempTitle.replace(/&apos;/g,"\'");
                       newParaItem.textContent =  receivingObject.pubDate;
-
-                      // tempTitle = newHeaderItem.textContent;
-                      // console.log(tempTitle+'Before Regex');
-                      // var finalTitle = tempTitle.replace(" \' ","YYY");
-                      // newHeaderItem = finalTitle; 
-
-                      //newParaItem = newParaItem.textContent.replace("&apos","YYY");
-                      // tempTitle = newHeaderItem.textContent.replace("&apos","YYY");
-                      //console.log(finalTitle+'After Regex');
-                      // console.log(newParaItem+'this is newParaItem');
-                      // console.log(newParaItem.textContent+'this is textContent');
 
                       newDivItem.appendChild(newHeaderItem);
                       newDivItem.appendChild(newParaItem);
                       newListItem.appendChild(newDivItem);
                       $($("#ListTicker")[0]).append(newListItem);
-                      
-                      //var newDescItem = document.createTextNode(receivingObject.pubDate);
-                      //newListItem.appendChild(newDescItem);
-  
-                      //document.getElementById("ListTicker").appendChild(newDescItem);
-
-                      
-                      //$($("#ListTicker")[0]).append(newListItem);
-                      //newListItem.textContent = receivingObject.pubDate;
-                      
-                      
-
-                      //var newListItem = document.createElement("li");
-                      //newListItem.textContent = receivingObject.pubDate;
-                      //newListItem.textContent = receivingObject.link; 
-                      //$($("#ListTicker")).append(newListItem);
-                      // console.log("------------ Next ------------");
-                      // console.log("title      : " + parsedXML.find("title").text());
-                     // console.log("description: " + parsedXML.find("description").text());
-                      //console.log("link       : " + parsedXML.find("link").text());
                   });
-                  // var receivingArray = new receivingArray();
-                  //    receivingArray = receivingObject;
-                  //    console.log(receivingArray);
               }
           });
       }; 
@@ -126,30 +90,33 @@
          border-bottom: 1px solid #D6CFB8;
          }
          customheader {
-        font-size: 13px;
+        font-size: 16px;
         font-weight: heavy;
-        color: #2a6496;
-        font-family: "Cousine";
+        /*color: #2a6496;*/
+        color: #D35400;
+        font-family: "Tahoma";
          }
          p {
-        font-size: 13px;  
+        font-size: 13px;
+        font-family: "Verdana";
          }
          body {
          /*background-image: url("Tom-Brady-image.png");
          background-size:25%;
          background-position: right;*/
          
-         /*background-image: url("Tom-Snap.png");*/
-         /*background-image: url("Tom-Brady-image.png");
-         background-size:50%;*/
+         background-image: url("Images/nfl-black.jpg");
+         /*background-image: url("Images/Tom-Brady-image.png");*/
+         background-size:70%;
+         background-position: center;
          /*background-size:25%;*/
          
-         /*background-image: url("nfl_logo_2015_gold.jpg");
-         background-size:15%;*/
-         /*background-repeat: no-repeat;*/
-         /*background-position: center;*/
+         /*background-image: url("Images/nfl_logo_2015_gold.jpg");
+         background-size:15%;
+         background-repeat: no-repeat;
+         background-position: center;*/
 
-         background-image: url("Images/super-bowl-2016.jpg");
+         /*background-image: url("Images/super-bowl-2016.jpg");
          background-size:100% 115%;
          background-repeat: no-repeat;
          /*background-position: center;*/
@@ -161,6 +128,11 @@
         src: url("Fonts/good times rg.ttf") /* TTF file for CSS3 browsers */
         }
 
+        @font-face {
+        font-family: OctinCollege;
+        src: url("Fonts/octin college rg.ttf") /* TTF file for CSS3 browsers */
+        }
+
         h3 {
         font-family: OctinSports;
         font-size: 20px;
@@ -169,6 +141,8 @@
       </style>
    </head>
    <body>
+   <br>
+   <marquee behavior="scroll" direction="right"  scrollamount="5" width="400px" style="font-family: OctinCollege; color: WHITE; font-size: 35px; font-weight: bold;">... Trending Now ... </marquee><br>
       <div class="ticker">
          <!-- <h3>2<sup>nd</sup> and Goal</h3> -->
          <h3>From the Shotgun</h3>
@@ -182,5 +156,4 @@
       </div>
    </body>
    <br><br>
-   <div style="color:RED"> Bored from the same feeds?! Come back after a 5-mile run and hit the F5 key. </div>
 </html>
